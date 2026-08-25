@@ -113,8 +113,8 @@ def main():
                 f"Population: {population.count()}",
                 f"Avg Speed Gene: {avgSpeed:.3f}",
                 f"Avg Energy: {avgEnergy:.1f}",
-                f"Zoom: {zoom:.2f}x",
-                f"Speed: {simSpeed}x {'(PAUSED)' if paused else ''}",
+                f"Zoom(scrollwheel): {zoom:.2f}x",
+                f"Speed(↑ & ↓ to change): {simSpeed}x {'(PAUSED)' if paused else ''}",
                 f"FPS: {clock.get_fps():.0f}"
             ]
         else:

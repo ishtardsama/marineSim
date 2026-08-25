@@ -2,12 +2,6 @@
 
 A high-performance, Data-Oriented ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
 
-## Features
-*   **Data-Oriented Design:** Bypasses standard Object-Oriented loops. The entire ecosystem is stored in contiguous memory arrays, allowing thousands of agents to render at 60 FPS.
-*   **Spatial Environment (Scalar Field):** A fully simulated 2D grid of regrowing plankton that agents must actively forage to survive.
-*   **Interactive Virtual Camera:** Pan, zoom, and explore the ecosystem in real-time with dynamic screen culling for high performance.
-*   **Time Control:** Fast-forward evolution up to 64x speed or pause the simulation to inspect individual agents.
-
 ---
 
 ## Getting Started

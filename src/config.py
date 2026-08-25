@@ -10,7 +10,7 @@ class SimConfig:
     initialPrey: int = 1500
     
     #Bioenergetics & Thresholds
-    baseMetabolism: float = 0.05
+    baseMetabolism: float = 0.02
     energyReproductionThreshold: float = 90.0
     energyReproductionCost: float = 45.0
     offspringStartingEnergy: float = 40.0
@@ -27,3 +27,10 @@ class SimConfig:
     #Evolution Parameters
     mutationRate: float = 0.10
     mutationSigma: float = 0.04
+
+    #Environmental Grid Parameters
+    gridScale: int = 10                     #Each grid cell is 10x10 pixels
+    planktonGrowthRate: float = 0.02
+    maxPlanktonPerCell: float = 5.0
+    biteSize: float = 1.0                   #How much plankton an agent eats per tick
+    planktonEnergyMultiplier: float = 15.0  #1 unit of plankton = 15 energy

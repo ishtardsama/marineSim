@@ -1,6 +1,6 @@
 # Marine Life Evolution Engine
 
-A high-performance marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
+A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
 
 ---
 
@@ -90,5 +90,3 @@ Survival of the fittest is modeled via an energy-gated asexual reproduction syst
     
     *(Where σ is the `mutationSigma` of 0.04, applied with a 10% probability per gene).*
 
----
-*Created as a high-performance Artificial Life exploration.*

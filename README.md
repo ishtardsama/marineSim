@@ -1,6 +1,6 @@
 # Marine Life Evolution Engine
 
-A high-performance, Data-Oriented ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
+A high-performance marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
 
 ---
 
@@ -12,8 +12,8 @@ You will need Python 3.10+ installed on your system.
 ### Installation
 1. Clone the repository:
 
-        git clone https://github.com/<YOUR-USERNAME>/marine-eco-sim.git
-        cd marine-eco-sim
+        git clone https://github.com/<YOUR-USERNAME>/marineSim.git
+        cd marineSim
 
 2. Create and activate a virtual environment:
 
@@ -54,7 +54,7 @@ Each agent's physical and biological state is defined by a genetic array, normal
 
 | Index | Gene | Function in Simulation |
 | :--- | :--- | :--- |
-| `0` | **Speed** | Dictates pixel velocity and metabolic cost (Color: Red = Fast, Blue = Slow). |
+| `0` | **Speed** | Dictates pixel velocity and metabolic cost (Color: Red = Fast, Blue = Slow, Purple/Pink = Mid). |
 | `1` | **Vision** | (Reserved for future predator/prey detection). |
 | `2` | **Thermal** | (Reserved for environmental temperature mapping). |
 

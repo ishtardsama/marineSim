@@ -19,20 +19,65 @@ class AgentPopulation:
         #Genotype Matrix (n agents x numGenes)
         self.dna = np.random.uniform(0.2, 0.8, size=(size, config.numGenes)).astype(np.float32)
 
+        #Heading (radians) - persistent facing direction, steered each tick by vision.
+        #Replaces the old "fresh random angle every tick" movement model.
+        self.heading = np.random.uniform(0, 2 * np.pi, size=size).astype(np.float32)
+
+        #Fixed sensor fan (relative to heading) used for vision raycasting - not
+        #per-agent state, just a shared constant precomputed once as an array.
+        self.senseOffsets = np.array(config.visionSensorOffsets, dtype=np.float32)
+
     def count(self) -> int:
         return len(self.energy)
+
+    def _senseAndSteer(self, env_grid):
+        #Cast K sensors per agent, fanned around each agent's current heading
+        sensorAngles = self.heading[:, None] + self.senseOffsets[None, :]  # (N, K)
+
+        #Vision distance scales with geneVision; floor at one grid cell so
+        #low-vision agents still sample a cell distinct from their own
+        visionRange = (self.dna[:, self.cfg.geneVision] * self.cfg.visionRangeScale) + self.cfg.gridScale
+
+        #Sample points out along each sensor, wrapped toroidally like normal movement
+        dx = np.cos(sensorAngles) * visionRange[:, None]
+        dy = np.sin(sensorAngles) * visionRange[:, None]
+        sampleX = (self.positions[:, 0:1] + dx) % self.cfg.worldWidth
+        sampleY = (self.positions[:, 1:2] + dy) % self.cfg.worldHeight
+
+        #Convert sample points to grid cells and gather plankton density at each.
+        #Fully vectorized 2D fancy-indexing - no python loop over agents or sensors.
+        gridSampleX = np.clip((sampleX // self.cfg.gridScale).astype(np.int32), 0, env_grid.cols - 1)
+        gridSampleY = np.clip((sampleY // self.cfg.gridScale).astype(np.int32), 0, env_grid.rows - 1)
+        sensedFood = env_grid.plankton[gridSampleY, gridSampleX]  # (N, K)
+
+        #Steer toward whichever sensor saw the most food
+        bestIdx = np.argmax(sensedFood, axis=1)
+        bestOffset = self.senseOffsets[bestIdx]
+        targetHeading = self.heading + bestOffset
+
+        #Turn gradually toward the target heading (shortest signed angular distance)
+        angleDiff = np.arctan2(np.sin(targetHeading - self.heading), np.cos(targetHeading - self.heading))
+        turn = np.clip(angleDiff, -self.cfg.maxTurnRate, self.cfg.maxTurnRate)
+
+        #Exploration noise - keeps agents wandering in uniform/empty patches instead
+        #of locking onto argmax's default tiebreak (index 0) direction forever
+        exploreNoise = np.random.normal(0, self.cfg.headingNoiseSigma, size=self.count()).astype(np.float32)
+
+        self.heading += turn + exploreNoise
 
     #Change the definition to accept env_grid
     def step(self, env_grid):
         if self.count() == 0:
             return
 
-        #Physics and movement
-        angles = np.random.uniform(0, 2 * np.pi, size=self.count()).astype(np.float32)
+        #Vision-based steering: sense surrounding plankton and turn toward food
+        self._senseAndSteer(env_grid)
+
+        #Physics and movement (driven by persistent heading instead of a random angle)
         speeds = (self.dna[:, self.cfg.geneSpeed] * 1.0).astype(np.float32)
         
-        self.velocities[:, 0] = np.cos(angles) * speeds
-        self.velocities[:, 1] = np.sin(angles) * speeds
+        self.velocities[:, 0] = np.cos(self.heading) * speeds
+        self.velocities[:, 1] = np.sin(self.heading) * speeds
         self.positions += self.velocities
         
         #Toroidal wrapping
@@ -74,6 +119,7 @@ class AgentPopulation:
         self.energy = self.energy[aliveMask]
         self.age = self.age[aliveMask]
         self.dna = self.dna[aliveMask]
+        self.heading = self.heading[aliveMask]
 
         #Reproduction 
         reproduceMask = self.energy >= self.cfg.energyReproductionThreshold
@@ -91,6 +137,12 @@ class AgentPopulation:
                 1.0
             ).astype(np.float32)
 
+            #Offspring inherit the parent's heading (plus a little drift) rather
+            #than starting with a fresh random direction
+            parentHeading = self.heading[reproduceMask]
+            headingMutation = np.random.normal(0, self.cfg.headingMutationSigma, size=numOffspring).astype(np.float32)
+            offspringHeading = (parentHeading + headingMutation).astype(np.float32)
+
             offspringPosition = self.positions[reproduceMask] + np.random.uniform(-4, 4, size=(numOffspring, 2))
             offspringPosition[:, 0] %= self.cfg.worldWidth
             offspringPosition[:, 1] %= self.cfg.worldHeight
@@ -104,3 +156,4 @@ class AgentPopulation:
             self.energy = np.concatenate([self.energy, offspringEnergy])
             self.age = np.concatenate([self.age, offspringAge])
             self.dna = np.vstack([self.dna, offspringDna])
+            self.heading = np.concatenate([self.heading, offspringHeading])

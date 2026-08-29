@@ -34,3 +34,10 @@ class SimConfig:
     maxPlanktonPerCell: float = 5.0
     biteSize: float = 1.0                   #How much plankton an agent eats per tick
     planktonEnergyMultiplier: float = 15.0  #1 unit of plankton = 15 energy
+
+    #Vision & Steering Parameters
+    visionSensorOffsets: tuple = (-0.9, -0.45, 0.0, 0.45, 0.9)  #radians, relative to heading (K=5 sensors)
+    visionRangeScale: float = 40.0          #world units of sight per unit of geneVision (0.05-1.0)
+    maxTurnRate: float = 0.15               #max radians an agent can turn its heading per tick
+    headingNoiseSigma: float = 0.15         #stddev of random heading drift, keeps agents exploring
+    headingMutationSigma: float = 0.2       #stddev of heading noise inherited by offspring

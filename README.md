@@ -1,12 +1,6 @@
 # Marine Life Evolution Engine
 
-A high-performance, Data-Oriented ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
-
-## Features
-*   **Data-Oriented Design:** Bypasses standard Object-Oriented loops. The entire ecosystem is stored in contiguous memory arrays, allowing thousands of agents to render at 60 FPS.
-*   **Spatial Environment (Scalar Field):** A fully simulated 2D grid of regrowing plankton that agents must actively forage to survive.
-*   **Interactive Virtual Camera:** Pan, zoom, and explore the ecosystem in real-time with dynamic screen culling for high performance.
-*   **Time Control:** Fast-forward evolution up to 64x speed or pause the simulation to inspect individual agents.
+A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
 
 ---
 
@@ -18,8 +12,8 @@ You will need Python 3.10+ installed on your system.
 ### Installation
 1. Clone the repository:
 
-        git clone https://github.com/<YOUR-USERNAME>/marine-eco-sim.git
-        cd marine-eco-sim
+        git clone https://github.com/<YOUR-USERNAME>/marineSim.git
+        cd marineSim
 
 2. Create and activate a virtual environment:
 
@@ -60,7 +54,7 @@ Each agent's physical and biological state is defined by a genetic array, normal
 
 | Index | Gene | Function in Simulation |
 | :--- | :--- | :--- |
-| `0` | **Speed** | Dictates pixel velocity and metabolic cost (Color: Red = Fast, Blue = Slow). |
+| `0` | **Speed** | Dictates pixel velocity and metabolic cost (Color: Red = Fast, Blue = Slow, Purple/Pink = Mid). |
 | `1` | **Vision** | (Reserved for future predator/prey detection). |
 | `2` | **Thermal** | (Reserved for environmental temperature mapping). |
 
@@ -96,5 +90,3 @@ Survival of the fittest is modeled via an energy-gated asexual reproduction syst
     
     *(Where σ is the `mutationSigma` of 0.04, applied with a 10% probability per gene).*
 
----
-*Created as a high-performance Artificial Life exploration.*

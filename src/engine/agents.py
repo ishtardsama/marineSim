@@ -80,7 +80,7 @@ class AgentPopulation:
         self.velocities[:, 1] = np.sin(self.heading) * speeds
         self.positions += self.velocities
         
-        #Toroidal wrapping
+        #Toroidal wrapping // remove add barriers
         self.positions[:, 0] %= self.cfg.worldWidth
         self.positions[:, 1] %= self.cfg.worldHeight
 

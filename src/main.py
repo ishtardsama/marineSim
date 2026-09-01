@@ -69,7 +69,7 @@ def main():
         if not paused:
             for _ in range(simSpeed):
                 environment.step() #Grow plankton
-                population.step(environment) # Pass grid to agents
+                population.step(environment) #Pass grid to agents
                 tick += 1
 
         #Render virtual camera

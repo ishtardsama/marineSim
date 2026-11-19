@@ -1,4 +1,4 @@
-# Marine Life Evolution Engine
+# MarineSim
 
 A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
 

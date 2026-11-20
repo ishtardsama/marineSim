@@ -1,11 +1,3 @@
-
-<div align="center">
-    <img src="MarineSim banner.jpg" alt="Logo"  height="350" width="410">
-</a>
-    <h3 align="center" >MarineSim</h3
-</div>
-</div>
-
 <div align="center">
     <img src="images/MarineSim banner.jpg" alt="Logo" width="350" height="410">
   </a>

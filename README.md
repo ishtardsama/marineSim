@@ -1,7 +1,8 @@
-<h3 align="center">MarineSim</h3>
+
 <div align="center">
     <img src="MarineSim banner.jpg" alt="Logo"  height="350" width="410">
   </a>
+    <h3 MarineSim</h3>
 </div>
 
 A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.

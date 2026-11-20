@@ -5,7 +5,7 @@
   <h3 align="center">MarineSim</h3>
 
   <p align="center">
-    A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.<br />
+    A marine evolution ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.<br />
   </p>
 </div>
 

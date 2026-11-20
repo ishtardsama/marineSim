@@ -4,8 +4,19 @@
 </a>
     <h3 align="center" >MarineSim</h3
 </div>
+</div>
 
-A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.
+<div align="center">
+    <img src="images/MarineSim banner.jpg" alt="Logo" width="350" height="410">
+  </a>
+
+  <h3 align="center">MarineSim</h3>
+
+  <p align="center">
+    A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation across thousands of autonomous agents in real time using NumPy array vectorization.<br />
+  </p>
+</div>
+
 
 ---
 
